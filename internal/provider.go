@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/stainless-sdks/metronome-terraform/internal/resources/billable_metric"
 )
 
 var _ provider.Provider = &MetronomeProvider{}
@@ -82,7 +83,9 @@ func (p *MetronomeProvider) Configure(ctx context.Context, req provider.Configur
 }
 
 func (p *MetronomeProvider) Resources(ctx context.Context) []func() resource.Resource {
-	return []func() resource.Resource{}
+	return []func() resource.Resource{
+		billable_metric.NewResource,
+	}
 }
 
 func (p *MetronomeProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
