@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [[ -n "$1" ]]; then
+  LOCAL_GO="$1"
+  shift
+else
+  LOCAL_GO=../metronome-go
+fi
+
+echo "==> Linking with local directory"
+go mod edit -replace github.com/Metronome-Industries/metronome-go="$LOCAL_GO"
