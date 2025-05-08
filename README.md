@@ -1,7 +1,7 @@
 # Metronome Terraform Provider
 
 The [Metronome Terraform provider](https://registry.terraform.io/providers/stainless-sdks/metronome/latest/docs) provides convenient access to
-[the Metronome REST API](https://docs.metronome.com) from Terraform.
+the [Metronome REST API](https://docs.metronome.com) from Terraform.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
