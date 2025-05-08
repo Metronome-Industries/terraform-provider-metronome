@@ -22,7 +22,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		Address: "registry.terraform.io/stainless-sdks/metronome-terraform",
+		Address: "registry.terraform.io/stainless-sdks/metronome",
 		Debug:   debug,
 	}
 

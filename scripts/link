@@ -12,4 +12,5 @@ else
 fi
 
 echo "==> Linking with local directory"
+go mod tidy -e
 go mod edit -replace github.com/Metronome-Industries/metronome-go="$LOCAL_GO"
