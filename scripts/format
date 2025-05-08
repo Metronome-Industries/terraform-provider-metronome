@@ -8,4 +8,4 @@ echo "==> Running formatters"
 gofmt -s -w .
 
 echo "==> Generate terraform docs"
-./scripts/generate-docs
+./scripts/generate-docs || exit 0

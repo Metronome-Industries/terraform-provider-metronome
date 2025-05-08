@@ -29,7 +29,7 @@ var decoders sync.Map
 // Unmarshal is similar to [encoding/json.Unmarshal] and parses the JSON-encoded
 // data and stores it in the given pointer.
 func Unmarshal(raw []byte, to any) error {
-	d := &decoderBuilder{dateFormat: time.RFC3339}
+	d := &decoderBuilder{dateFormat: time.RFC3339, unmarshalComputedOnly: false}
 	return d.unmarshal(raw, to)
 }
 
@@ -112,9 +112,10 @@ type decoderField struct {
 
 type decoderEntry struct {
 	reflect.Type
-	dateFormat     string
-	root           bool
-	tfSkipBehavior TerraformUpdateBehavior
+	dateFormat            string
+	root                  bool
+	unmarshalComputedOnly bool
+	tfSkipBehavior        TerraformUpdateBehavior
 }
 
 func (d *decoderBuilder) unmarshal(raw []byte, to any) error {
@@ -128,10 +129,11 @@ func (d *decoderBuilder) unmarshal(raw []byte, to any) error {
 
 func (d *decoderBuilder) typeDecoder(t reflect.Type) decoderFunc {
 	entry := decoderEntry{
-		Type:           t,
-		dateFormat:     d.dateFormat,
-		root:           d.root,
-		tfSkipBehavior: d.updateBehavior,
+		Type:                  t,
+		dateFormat:            d.dateFormat,
+		root:                  d.root,
+		unmarshalComputedOnly: d.unmarshalComputedOnly,
+		tfSkipBehavior:        d.updateBehavior,
 	}
 
 	if fi, ok := decoders.Load(entry); ok {
@@ -488,6 +490,7 @@ func (d *decoderBuilder) newTerraformTypeDecoder(t reflect.Type) decoderFunc {
 	b := d.updateBehavior
 
 	if (t == reflect.TypeOf(basetypes.StringValue{})) {
+
 		return d.decodeTerraformPrimitive(func() any { return types.StringNull() }, func(node gjson.Result, value reflect.Value, state *decoderState) error {
 			if node.Type == gjson.String {
 				value.Set(reflect.ValueOf(types.StringValue(node.String())))
@@ -1011,6 +1014,9 @@ func (d *decoderBuilder) newStructTypeDecoder(t reflect.Type) decoderFunc {
 					// is to update.
 					d.updateBehavior = Always
 				}
+			} else if ptag.noRefresh {
+				// if no_refresh is set and we're doing a refresh, then skip the value
+				continue
 			}
 
 			// We only want to support unexported fields if they're tagged with
