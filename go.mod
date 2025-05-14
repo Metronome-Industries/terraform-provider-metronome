@@ -3,7 +3,7 @@ module github.com/stainless-sdks/metronome-terraform
 go 1.22.0
 
 require (
-	github.com/Metronome-Industries/metronome-go v0.1.0-beta.7
+	github.com/Metronome-Industries/metronome-go v0.1.0-beta.8
 	github.com/davecgh/go-spew v1.1.1
 	github.com/hashicorp/terraform-plugin-docs v0.16.0
 	github.com/hashicorp/terraform-plugin-framework v1.14.1
