@@ -21,8 +21,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
-	"github.com/stainless-sdks/metronome-terraform/internal/apijson"
-	"github.com/stainless-sdks/metronome-terraform/internal/customfield"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/apijson"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/customfield"
 )
 
 var encoders sync.Map // map[encoderEntry]encoderFunc

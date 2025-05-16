@@ -6,10 +6,10 @@ import (
 	"context"
 
 	"github.com/Metronome-Industries/metronome-go"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/customfield"
 	"github.com/hashicorp/terraform-plugin-framework-timetypes/timetypes"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stainless-sdks/metronome-terraform/internal/customfield"
 )
 
 type V1CustomerBillingConfigDataSourceModel struct {

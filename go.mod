@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/metronome-terraform
+module github.com/Metronome-Industries/terraform-provider-metronome
 
 go 1.22.0
 

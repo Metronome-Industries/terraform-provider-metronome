@@ -3,11 +3,11 @@
 package v1_contract_named_schedule
 
 import (
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/apijson"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/customfield"
 	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework-timetypes/timetypes"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stainless-sdks/metronome-terraform/internal/apijson"
-	"github.com/stainless-sdks/metronome-terraform/internal/customfield"
 )
 
 type V1ContractNamedScheduleModel struct {
