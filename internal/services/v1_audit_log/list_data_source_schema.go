@@ -5,13 +5,13 @@ package v1_audit_log
 import (
 	"context"
 
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/customfield"
 	"github.com/hashicorp/terraform-plugin-framework-timetypes/timetypes"
 	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
-	"github.com/stainless-sdks/metronome-terraform/internal/customfield"
 )
 
 var _ datasource.DataSourceWithConfigValidators = (*V1AuditLogsDataSource)(nil)

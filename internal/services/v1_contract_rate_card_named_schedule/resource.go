@@ -10,9 +10,9 @@ import (
 
 	"github.com/Metronome-Industries/metronome-go"
 	"github.com/Metronome-Industries/metronome-go/option"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/apijson"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/logging"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/stainless-sdks/metronome-terraform/internal/apijson"
-	"github.com/stainless-sdks/metronome-terraform/internal/logging"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.

@@ -7,10 +7,10 @@ import (
 	"fmt"
 
 	"github.com/Metronome-Industries/metronome-go"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/apijson"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/customfield"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/stainless-sdks/metronome-terraform/internal/apijson"
-	"github.com/stainless-sdks/metronome-terraform/internal/customfield"
 )
 
 type V1BillableMetricsDataSource struct {

@@ -6,8 +6,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stainless-sdks/metronome-terraform/internal/services/v1_customer_alert"
-	"github.com/stainless-sdks/metronome-terraform/internal/test_helpers"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_customer_alert"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/test_helpers"
 )
 
 func TestV1CustomerAlertDataSourceModelSchemaParity(t *testing.T) {

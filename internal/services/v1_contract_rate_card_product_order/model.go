@@ -3,9 +3,9 @@
 package v1_contract_rate_card_product_order
 
 import (
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/apijson"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/customfield"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stainless-sdks/metronome-terraform/internal/apijson"
-	"github.com/stainless-sdks/metronome-terraform/internal/customfield"
 )
 
 type V1ContractRateCardProductOrderModel struct {

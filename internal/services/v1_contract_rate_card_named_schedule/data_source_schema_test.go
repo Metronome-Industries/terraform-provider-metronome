@@ -6,8 +6,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stainless-sdks/metronome-terraform/internal/services/v1_contract_rate_card_named_schedule"
-	"github.com/stainless-sdks/metronome-terraform/internal/test_helpers"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_contract_rate_card_named_schedule"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/test_helpers"
 )
 
 func TestV1ContractRateCardNamedScheduleDataSourceModelSchemaParity(t *testing.T) {

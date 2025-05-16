@@ -5,11 +5,11 @@ package v1_contract_named_schedule
 import (
 	"context"
 
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/customfield"
 	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework-timetypes/timetypes"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
-	"github.com/stainless-sdks/metronome-terraform/internal/customfield"
 )
 
 var _ datasource.DataSourceWithConfigValidators = (*V1ContractNamedScheduleDataSource)(nil)

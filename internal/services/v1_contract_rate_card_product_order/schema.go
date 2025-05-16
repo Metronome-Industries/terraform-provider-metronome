@@ -5,11 +5,11 @@ package v1_contract_rate_card_product_order
 import (
 	"context"
 
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/customfield"
 	"github.com/hashicorp/terraform-plugin-framework-validators/float64validator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
-	"github.com/stainless-sdks/metronome-terraform/internal/customfield"
 )
 
 var _ resource.ResourceWithConfigValidators = (*V1ContractRateCardProductOrderResource)(nil)
