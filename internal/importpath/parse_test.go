@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/stainless-sdks/metronome-terraform/internal/importpath"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/importpath"
 )
 
 func TestParseID(t *testing.T) {

@@ -7,8 +7,8 @@ import (
 	"flag"
 	"log"
 
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
-	"github.com/stainless-sdks/metronome-terraform/internal"
 )
 
 var (
@@ -22,7 +22,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		Address: "registry.terraform.io/stainless-sdks/metronome",
+		Address: "registry.terraform.io/Metronome-Industries/metronome",
 		Debug:   debug,
 	}
 
