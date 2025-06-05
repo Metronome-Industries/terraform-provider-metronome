@@ -1,5 +1,8 @@
 # Metronome Terraform Provider
 
+> [!CAUTION]
+> This terraform provider is experimental. DO NOT use in production.
+
 The [Metronome Terraform provider](https://registry.terraform.io/providers/Metronome-Industries/metronome/latest/docs) provides convenient access to
 the [Metronome REST API](https://docs.metronome.com) from Terraform.
 
