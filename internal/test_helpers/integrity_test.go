@@ -8,8 +8,8 @@ import (
 	rs "github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
-	"github.com/stainless-sdks/metronome-terraform/internal/customfield"
-	"github.com/stainless-sdks/metronome-terraform/internal/test_helpers"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/customfield"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/test_helpers"
 )
 
 type empty struct{}
