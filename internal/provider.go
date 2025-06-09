@@ -8,6 +8,28 @@ import (
 
 	"github.com/Metronome-Industries/metronome-go"
 	"github.com/Metronome-Industries/metronome-go/option"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_alert"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_audit_log"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_billable_metric"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_contract"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_contract_named_schedule"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_contract_product"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_contract_rate_card"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_contract_rate_card_named_schedule"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_contract_rate_card_product_order"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_contract_rate_card_rate"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_credit_grant"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_customer"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_customer_alert"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_customer_billing_config"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_customer_commit"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_customer_credit"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_customer_invoice"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_customer_named_schedule"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_customer_plan"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_plan"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v1_pricing_unit"
+	"github.com/Metronome-Industries/terraform-provider-metronome/internal/services/v2_contract"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
@@ -105,11 +127,51 @@ func (p *MetronomeProvider) ConfigValidators(_ context.Context) []provider.Confi
 }
 
 func (p *MetronomeProvider) Resources(ctx context.Context) []func() resource.Resource {
-	return []func() resource.Resource{}
+	return []func() resource.Resource{
+		v2_contract.NewResource,
+		v1_alert.NewResource,
+		v1_credit_grant.NewResource,
+		v1_customer.NewResource,
+		v1_customer_billing_config.NewResource,
+		v1_customer_commit.NewResource,
+		v1_customer_credit.NewResource,
+		v1_customer_named_schedule.NewResource,
+		v1_billable_metric.NewResource,
+		v1_contract.NewResource,
+		v1_contract_product.NewResource,
+		v1_contract_rate_card.NewResource,
+		v1_contract_rate_card_product_order.NewResource,
+		v1_contract_rate_card_named_schedule.NewResource,
+		v1_contract_named_schedule.NewResource,
+	}
 }
 
 func (p *MetronomeProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{}
+	return []func() datasource.DataSource{
+		v2_contract.NewV2ContractDataSource,
+		v1_plan.NewV1PlansDataSource,
+		v1_credit_grant.NewV1CreditGrantsDataSource,
+		v1_pricing_unit.NewV1PricingUnitsDataSource,
+		v1_customer.NewV1CustomerDataSource,
+		v1_customer.NewV1CustomersDataSource,
+		v1_customer_alert.NewV1CustomerAlertDataSource,
+		v1_customer_plan.NewV1CustomerPlansDataSource,
+		v1_customer_invoice.NewV1CustomerInvoiceDataSource,
+		v1_customer_invoice.NewV1CustomerInvoicesDataSource,
+		v1_customer_billing_config.NewV1CustomerBillingConfigDataSource,
+		v1_customer_named_schedule.NewV1CustomerNamedScheduleDataSource,
+		v1_audit_log.NewV1AuditLogsDataSource,
+		v1_billable_metric.NewV1BillableMetricDataSource,
+		v1_billable_metric.NewV1BillableMetricsDataSource,
+		v1_contract.NewV1ContractDataSource,
+		v1_contract_product.NewV1ContractProductDataSource,
+		v1_contract_product.NewV1ContractProductsDataSource,
+		v1_contract_rate_card.NewV1ContractRateCardDataSource,
+		v1_contract_rate_card.NewV1ContractRateCardsDataSource,
+		v1_contract_rate_card_rate.NewV1ContractRateCardRatesDataSource,
+		v1_contract_rate_card_named_schedule.NewV1ContractRateCardNamedScheduleDataSource,
+		v1_contract_named_schedule.NewV1ContractNamedScheduleDataSource,
+	}
 }
 
 func NewProvider(version string) func() provider.Provider {
