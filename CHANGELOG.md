@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-06-13)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/Metronome-Industries/terraform-provider-metronome/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** api update ([471c750](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/471c750e49acbe5c916a547669a449da4f30104a))
+
 ## 0.1.0-alpha.2 (2025-06-09)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/Metronome-Industries/terraform-provider-metronome/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
