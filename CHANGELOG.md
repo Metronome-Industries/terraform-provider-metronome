@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-07-03)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/Metronome-Industries/terraform-provider-metronome/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** api update ([471c750](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/471c750e49acbe5c916a547669a449da4f30104a))
+
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([331f6dc](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/331f6dc23fad047aca9f789e75f6cff819efd2a2))
+* null nested attribute decoding ([c7b475b](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/c7b475b7e9037eedd1c742723c69865b1ded8015))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([ac043bb](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/ac043bb0107a5958ba520386fc5e58039b7a5dfb))
+* **ci:** only run for pushes and fork pull requests ([8a6f96f](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/8a6f96f573b05583ca14f5702d0c4a3663c6cf9b))
+
 ## 0.1.0-alpha.2 (2025-06-09)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/Metronome-Industries/terraform-provider-metronome/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
