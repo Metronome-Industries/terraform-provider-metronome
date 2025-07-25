@@ -25,7 +25,7 @@ terraform {
   required_providers {
     metronome = {
       source  = "Metronome-Industries/metronome"
-      version = "~> 0.1.0-alpha.2"
+      version = "~> 0.1.0-alpha.3"
     }
   }
 }
