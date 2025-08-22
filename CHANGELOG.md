@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-08-22)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/Metronome-Industries/terraform-provider-metronome/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** api update ([3abaec4](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/3abaec457971f14bd6065ff7c4bca1a6284cefe7))
+* **api:** api update ([471c750](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/471c750e49acbe5c916a547669a449da4f30104a))
+* ensure `internal/apiform` encoder can handle "force_encode" serialization tag ([bb6dfdd](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/bb6dfdd573b1b79d81ce127411e0634b2deb3001))
+* new option to send computed values back to server ([d340374](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/d3403742a77efbfe98cdae3f5f9259d85a8103b6))
+
+
+### Bug Fixes
+
+* **api:** handle mismatched dynamic array types in state and plan during serialization ([3df79a0](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/3df79a04a9ac98327ae1a8a93d0a019f44c4ffd8))
+* **ci:** release-doctor — report correct token name ([331f6dc](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/331f6dc23fad047aca9f789e75f6cff819efd2a2))
+* dynamic type validators should handle int and floats correctly ([f459e17](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/f459e17f35c30248fb4912f83ec1b876ac8a6d5f))
+* encoder crash for nested nils in dynamic types ([7603da4](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/7603da41fa42e5b4387afdc9828d89c9ade751bf))
+* null nested attribute decoding ([c7b475b](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/c7b475b7e9037eedd1c742723c69865b1ded8015))
+* populate computed_optional collections from API responses ([f3f117d](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/f3f117d27aa2062ec8324e53b8c63a8a3ca729ba))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([ac043bb](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/ac043bb0107a5958ba520386fc5e58039b7a5dfb))
+* **ci:** only run for pushes and fork pull requests ([8a6f96f](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/8a6f96f573b05583ca14f5702d0c4a3663c6cf9b))
+* **internal:** add test rule to lint for dynamic attributes that do not have planmodifier ([5d4c9ea](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/5d4c9ea0ddb66fa87d920447daf8598fdd211633))
+* **internal:** codegen related update ([af1938f](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/af1938f1d6322ba8e4491d39a5a8d91925c9a0f5))
+* **internal:** codegen related update ([04f57a5](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/04f57a5846de37919f64bce684c64736795ccd1f))
+* **internal:** upgrade cloudflare/circl ([5d33889](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/5d33889d1fbee8d0b10e215edc0ce300eeb298db))
+* update @stainless-api/prism-cli to v5.15.0 ([2486297](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/2486297fad4f421ba83ef98745cc8967e26e8f01))
+* update SDK settings ([c31dcbe](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/c31dcbec9e4c0e0896edf15fb24dace7c684b82a))
+
 ## 0.1.0-alpha.2 (2025-06-09)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/Metronome-Industries/terraform-provider-metronome/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
