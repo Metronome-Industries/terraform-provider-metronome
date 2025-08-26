@@ -96,8 +96,8 @@ func (p *MetronomeProvider) Configure(ctx context.Context, req provider.Configur
 		opts...,
 	)
 
-	resp.DataSourceData = client
-	resp.ResourceData = client
+	resp.DataSourceData = &client
+	resp.ResourceData = &client
 }
 
 func (p *MetronomeProvider) ConfigValidators(_ context.Context) []provider.ConfigValidator {
