@@ -2,6 +2,8 @@ module github.com/Metronome-Industries/terraform-provider-metronome
 
 go 1.24.0
 
+toolchain go1.24.12
+
 require (
 	github.com/Metronome-Industries/metronome-go v1.0.0
 	github.com/davecgh/go-spew v1.1.1
