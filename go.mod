@@ -3,7 +3,7 @@ module github.com/Metronome-Industries/terraform-provider-metronome
 go 1.25.8
 
 require (
-	github.com/Metronome-Industries/metronome-go v1.0.0
+	github.com/Metronome-Industries/metronome-go/v3 v3.5.0
 	github.com/davecgh/go-spew v1.1.1
 	github.com/hashicorp/terraform-plugin-docs v0.24.0
 	github.com/hashicorp/terraform-plugin-framework v1.15.0

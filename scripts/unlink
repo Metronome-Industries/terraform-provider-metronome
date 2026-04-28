@@ -5,4 +5,4 @@ set -e
 cd "$(dirname "$0")/.."
 
 echo "==> Unlinking with local directory"
-go mod edit -dropreplace github.com/Metronome-Industries/metronome-go
+go mod edit -dropreplace github.com/Metronome-Industries/metronome-go/v3
