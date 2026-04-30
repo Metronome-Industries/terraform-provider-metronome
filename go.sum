@@ -10,8 +10,8 @@ github.com/Masterminds/semver/v3 v3.2.0 h1:3MEsd0SM6jqZojhjLWWeBY+Kcjy9i6MQAeY7Y
 github.com/Masterminds/semver/v3 v3.2.0/go.mod h1:qvl/7zhW3nngYb5+80sSMF+FG2BjYrf8m9wsX0PNOMQ=
 github.com/Masterminds/sprig/v3 v3.2.3 h1:eL2fZNezLomi0uOLqjQoN6BfsDD+fyLtgbJMAj9n6YA=
 github.com/Masterminds/sprig/v3 v3.2.3/go.mod h1:rXcFaZ2zZbLRJv/xSysmlgIM1u11eBaRMhvYXJNkGuM=
-github.com/Metronome-Industries/metronome-go/v3 v3.5.0 h1:NttxU7sCz7GGiJg3dZahFSH6U/3ZtA6u5ima2ewdLP8=
-github.com/Metronome-Industries/metronome-go/v3 v3.5.0/go.mod h1:av/XmTcRvtWg9zuNMmEE+nH82e3sjS0aRS2n3Ri/Fzs=
+github.com/Metronome-Industries/metronome-go v1.0.0 h1:Wyj7wM9j/edji+n9XwSzWqgmjllVeKzthfcl2RWHiN0=
+github.com/Metronome-Industries/metronome-go v1.0.0/go.mod h1:yxG0D9Q11qRb3qLf0JZoMp5oCQAil5+0OYmVzKw15D8=
 github.com/Microsoft/go-winio v0.6.2 h1:F2VQgta7ecxGYO8k3ZZz3RS8fVIXVxONVUPlNERoyfY=
 github.com/Microsoft/go-winio v0.6.2/go.mod h1:yd8OoFMLzJbo9gZq8j5qaps8bJ9aShtEA8Ipt1oGCvU=
 github.com/ProtonMail/go-crypto v1.4.1 h1:9RfcZHqEQUvP8RzecWEUafnZVtEvrBVL9BiF67IQOfM=
