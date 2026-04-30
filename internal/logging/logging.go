@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Metronome-Industries/metronome-go/option"
+	"github.com/Metronome-Industries/metronome-go/v3/option"
 
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )

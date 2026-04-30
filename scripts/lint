@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 # Mark the necessary Go modules as private to avoid Go's proxy
-export GOPRIVATE="${GOPRIVATE:+$GOPRIVATE,}github.com/Metronome-Industries/metronome-go,github.com/stainless-sdks/metronome-go"
+export GOPRIVATE="${GOPRIVATE:+$GOPRIVATE,}github.com/Metronome-Industries/metronome-go/v3,github.com/stainless-sdks/metronome-go/v3"
 
 echo "==> Running Go build"
 go build ./...
