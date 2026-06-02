@@ -27,7 +27,7 @@ import (
 
 var encoders sync.Map // map[encoderEntry]encoderFunc
 
-func MarshalRoot(value interface{}, writer *multipart.Writer) error {
+func MarshalRoot(value any, writer *multipart.Writer) error {
 	e := &encoder{root: true, dateFormat: time.RFC3339}
 	return e.marshal(value, writer)
 }
@@ -51,7 +51,7 @@ type encoderEntry struct {
 	root       bool
 }
 
-func (e *encoder) marshal(value interface{}, writer *multipart.Writer) error {
+func (e *encoder) marshal(value any, writer *multipart.Writer) error {
 	val := reflect.ValueOf(value)
 	if !val.IsValid() {
 		return nil
@@ -172,22 +172,24 @@ func (e *encoder) terraformUnwrappedDynamicEncoder(unwrap terraformUnwrappingFun
 }
 
 func (e *encoder) newTerraformTypeEncoder(t reflect.Type) encoderFunc {
+	ctx := context.TODO()
 
+	// Note that we use pointers for primitives so that we can distinguish between a zero and omitted value.
 	if t == reflect.TypeOf(basetypes.BoolValue{}) {
-		return e.terraformUnwrappedEncoder(reflect.TypeOf(true), func(value attr.Value) (any, diag.Diagnostics) {
-			return value.(basetypes.BoolValue).ValueBool(), diag.Diagnostics{}
+		return e.terraformUnwrappedEncoder(reflect.PointerTo(reflect.TypeOf(true)), func(value attr.Value) (any, diag.Diagnostics) {
+			return apijson.UnwrapTerraformAttrValue(ctx, value)
 		})
 	} else if t == reflect.TypeOf(basetypes.Int64Value{}) {
-		return e.terraformUnwrappedEncoder(reflect.TypeOf(int64(0)), func(value attr.Value) (any, diag.Diagnostics) {
-			return value.(basetypes.Int64Value).ValueInt64(), diag.Diagnostics{}
+		return e.terraformUnwrappedEncoder(reflect.PointerTo(reflect.TypeOf(int64(0))), func(value attr.Value) (any, diag.Diagnostics) {
+			return apijson.UnwrapTerraformAttrValue(ctx, value)
 		})
 	} else if t == reflect.TypeOf(basetypes.Float64Value{}) {
-		return e.terraformUnwrappedEncoder(reflect.TypeOf(float64(0)), func(value attr.Value) (any, diag.Diagnostics) {
-			return value.(basetypes.Float64Value).ValueFloat64(), diag.Diagnostics{}
+		return e.terraformUnwrappedEncoder(reflect.PointerTo(reflect.TypeOf(float64(0))), func(value attr.Value) (any, diag.Diagnostics) {
+			return apijson.UnwrapTerraformAttrValue(ctx, value)
 		})
 	} else if t == reflect.TypeOf(basetypes.StringValue{}) {
-		return e.terraformUnwrappedEncoder(reflect.TypeOf(""), func(value attr.Value) (any, diag.Diagnostics) {
-			return value.(basetypes.StringValue).ValueString(), diag.Diagnostics{}
+		return e.terraformUnwrappedEncoder(reflect.PointerTo(reflect.TypeOf("")), func(value attr.Value) (any, diag.Diagnostics) {
+			return apijson.UnwrapTerraformAttrValue(ctx, value)
 		})
 	} else if t == reflect.TypeOf(timetypes.RFC3339{}) {
 		return e.terraformUnwrappedEncoder(reflect.TypeOf(time.Time{}), func(value attr.Value) (any, diag.Diagnostics) {
@@ -209,9 +211,10 @@ func (e *encoder) newTerraformTypeEncoder(t reflect.Type) encoderFunc {
 		return encodePartAsJSON
 	} else if t == reflect.TypeOf(basetypes.ObjectValue{}) {
 		return encodePartAsJSON
-	} else if t == reflect.TypeOf(basetypes.DynamicValue{}) {
+	} else if t.Implements(reflect.TypeOf((*basetypes.DynamicValuable)(nil)).Elem()) {
 		return e.terraformUnwrappedDynamicEncoder(func(value attr.Value) (any, diag.Diagnostics) {
-			return value.(basetypes.DynamicValue).UnderlyingValue(), diag.Diagnostics{}
+			val, d := value.(basetypes.DynamicValuable).ToDynamicValue(ctx)
+			return val.UnderlyingValue(), d
 		})
 	} else if t.Implements(reflect.TypeOf((*customfield.NestedObjectLike)(nil)).Elem()) {
 		return encodePartAsJSON
@@ -323,6 +326,10 @@ func (e *encoder) newStructTypeEncoder(t reflect.Type) encoderFunc {
 				continue
 			}
 			if ptag.name == "-" {
+				continue
+			}
+			// Computed fields come from the server
+			if ptag.computed && !ptag.forceEncode {
 				continue
 			}
 

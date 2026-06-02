@@ -1,0 +1,37 @@
+name: Setup Go
+description: 'Sets up Go environment with private modules'
+inputs:
+  stainless-api-key:
+    required: false
+    description: the value of the STAINLESS_API_KEY secret
+  go-version:
+    required: false
+    description: version or version range of Go to use
+  cache-dependency-path:
+    required: false
+    description: path to dependency files for caching
+runs:
+  using: composite
+  steps:
+    - uses: stainless-api/retrieve-github-access-token@1f03f929b746c5b03dcdafa2bebbb18ca5672e1a # v1.0.0
+      id: get_token
+      if: github.repository == 'stainless-sdks/metronome-terraform'
+      with:
+        repo: stainless-sdks/metronome-go
+        stainless-api-key: ${{ inputs.stainless-api-key }}
+
+    - name: Configure Git for to access Go SDK's staging repo
+      if: github.repository == 'stainless-sdks/metronome-terraform'
+      shell: bash
+      run: git config --global url."https://x-access-token:${{ steps.get_token.outputs.github_access_token }}@github.com/stainless-sdks/metronome-go".insteadOf "https://github.com/stainless-sdks/metronome-go"
+
+    - name: Setup go
+      uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5.6.0
+      with:
+        go-version: ${{ inputs.go-version }}
+        go-version-file: ./go.mod
+        cache-dependency-path: ${{ inputs.cache-dependency-path }}
+
+    - name: Bootstrap
+      shell: bash
+      run: ./scripts/bootstrap

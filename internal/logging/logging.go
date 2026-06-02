@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Metronome-Industries/metronome-go/option"
+	"github.com/Metronome-Industries/metronome-go/v3/option"
 
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
@@ -16,13 +16,17 @@ import (
 func Middleware(ctx context.Context) option.Middleware {
 	return func(req *http.Request, next option.MiddlewareNext) (*http.Response, error) {
 		if req != nil {
-			LogRequest(ctx, req)
+			if err := LogRequest(ctx, req); err != nil {
+				return nil, err
+			}
 		}
 
 		resp, err := next(req)
 
 		if resp != nil {
-			LogResponse(ctx, resp)
+			if err := LogResponse(ctx, resp); err != nil {
+				return nil, err
+			}
 		}
 
 		return resp, err

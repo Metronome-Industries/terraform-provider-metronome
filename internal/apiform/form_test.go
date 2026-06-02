@@ -17,6 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
 	"github.com/Metronome-Industries/terraform-provider-metronome/internal/customfield"
+	type_helpers "github.com/Metronome-Industries/terraform-provider-metronome/internal/types"
 )
 
 func P[T any](v T) *T { return &v }
@@ -58,6 +59,7 @@ type TerraformTypes struct {
 	P customfield.NestedObjectMap[NestedTerraformType]  `tfsdk:"p" json:"p"`
 	Q customfield.NestedObjectSet[NestedTerraformType]  `tfsdk:"q" json:"q"`
 	R jsontypes.Normalized                              `tfsdk:"r" json:"r"`
+	S customfield.NormalizedDynamicValue                `tfsdk:"s" json:"s"`
 }
 
 type NestedTerraformType struct {
@@ -74,8 +76,8 @@ type DateTime struct {
 }
 
 type AdditionalProperties struct {
-	A      bool                   `json:"a"`
-	Extras map[string]interface{} `json:"-,extras"`
+	A      bool           `json:"a"`
+	Extras map[string]any `json:"-,extras"`
 }
 
 type TypedAdditionalProperties struct {
@@ -85,8 +87,8 @@ type TypedAdditionalProperties struct {
 
 type EmbeddedStructs struct {
 	AdditionalProperties
-	A      *int                   `json:"number2"`
-	Extras map[string]interface{} `json:"-,extras"`
+	A      *int           `json:"number2"`
+	Extras map[string]any `json:"-,extras"`
 }
 
 type Recursive struct {
@@ -95,7 +97,7 @@ type Recursive struct {
 }
 
 type UnknownStruct struct {
-	Unknown interface{} `json:"unknown"`
+	Unknown any `json:"unknown"`
 }
 
 type UnionStruct struct {
@@ -134,7 +136,7 @@ type ReaderStruct struct {
 
 var tests = map[string]struct {
 	buf string
-	val interface{}
+	val any
 }{
 	"map_string": {
 		`--xxx
@@ -161,7 +163,7 @@ Content-Disposition: form-data; name="c"
 false
 --xxx--
 `,
-		map[string]interface{}{"a": float64(1), "b": "str", "c": false},
+		map[string]any{"a": float64(1), "b": "str", "c": false},
 	},
 
 	"primitive_struct": {
@@ -314,12 +316,17 @@ Content-Disposition: form-data; name="r"
 Content-Type: application/json
 
 {"hello": "world"}
+--xxx
+Content-Disposition: form-data; name="s"
+Content-Type: application/json
+
+{"dynamic_hello":"dynamic_world"}
 --xxx--
 `,
 		TerraformTypes{
 			A: types.BoolValue(true),
 			B: types.Int64Value(237628372683),
-			C: types.Float64Value(654),
+			C: type_helpers.NewFloat64ValueFromStringUnsafe("654"),
 			D: types.StringValue("a string value"),
 			E: timetypes.NewRFC3339TimeValue(time.Date(2006, time.January, 2, 15, 4, 5, 0, time.UTC)),
 			F: customfield.NewObjectMust(context.TODO(), &NestedTerraformType{
@@ -328,7 +335,7 @@ Content-Type: application/json
 			G: types.ObjectValueMust(map[string]attr.Type{"hello": basetypes.StringType{}}, map[string]attr.Value{"hello": basetypes.NewStringValue("world")}),
 			H: types.ListValueMust(basetypes.StringType{}, []attr.Value{basetypes.NewStringValue("a"), basetypes.NewStringValue("b")}),
 			I: types.MapValueMust(basetypes.Int64Type{}, map[string]attr.Value{"a": basetypes.NewInt64Value(3), "b": basetypes.NewInt64Value(8932)}),
-			J: types.SetValueMust(basetypes.Float64Type{}, []attr.Value{basetypes.NewFloat64Value(23.345), basetypes.NewFloat64Value(15)}),
+			J: types.SetValueMust(basetypes.Float64Type{}, []attr.Value{type_helpers.NewFloat64ValueFromStringUnsafe("23.345"), type_helpers.NewFloat64ValueFromStringUnsafe("15")}),
 			K: types.DynamicValue(types.ObjectValueMust(map[string]attr.Type{"dynamic_hello": basetypes.StringType{}}, map[string]attr.Value{"dynamic_hello": basetypes.NewStringValue("dynamic_world")})),
 			L: customfield.NewListMust[types.String](context.TODO(), []attr.Value{basetypes.NewStringValue("a"), basetypes.NewStringValue("b")}),
 			M: customfield.NewMapMust[types.String](context.TODO(), map[string]types.String{"a": basetypes.NewStringValue("3"), "b": basetypes.NewStringValue("8932")}),
@@ -358,6 +365,7 @@ Content-Type: application/json
 				},
 			}),
 			R: jsontypes.NewNormalizedValue(`{"hello": "world"}`),
+			S: customfield.RawNormalizedDynamicValue(types.DynamicValue(types.ObjectValueMust(map[string]attr.Type{"dynamic_hello": basetypes.StringType{}}, map[string]attr.Value{"dynamic_hello": basetypes.NewStringValue("dynamic_world")}))),
 		},
 	},
 
@@ -461,7 +469,7 @@ true
 `,
 		AdditionalProperties{
 			A: true,
-			Extras: map[string]interface{}{
+			Extras: map[string]any{
 				"bar": "value",
 				"foo": true,
 			},
@@ -503,7 +511,7 @@ bar
 --xxx--
 `,
 		UnknownStruct{
-			Unknown: map[string]interface{}{
+			Unknown: map[string]any{
 				"foo": "bar",
 			},
 		},
@@ -573,8 +581,11 @@ func TestEncode(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			buf := bytes.NewBuffer(nil)
 			writer := multipart.NewWriter(buf)
-			writer.SetBoundary("xxx")
-			err := MarshalRoot(test.val, writer)
+			err := writer.SetBoundary("xxx")
+			if err != nil {
+				t.Errorf("serialization of %v\nfailed with error:\n%v", test.val, err)
+			}
+			err = MarshalRoot(test.val, writer)
 			if err != nil {
 				t.Errorf("serialization of %v\nfailed with error:\n%v", test.val, err)
 			}
@@ -590,7 +601,7 @@ func TestEncode(t *testing.T) {
 	}
 }
 
-func DropDiagnostic[resType interface{}](res resType, diags diag.Diagnostics) resType {
+func DropDiagnostic[resType any](res resType, diags diag.Diagnostics) resType {
 	for _, d := range diags {
 		panic(fmt.Sprintf("%s: %s", d.Summary(), d.Detail()))
 	}

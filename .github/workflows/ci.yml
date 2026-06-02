@@ -1,23 +1,37 @@
 name: CI
 on:
   push:
+    branches:
+      - '**'
+      - '!integrated/**'
+      - '!stl-preview-head/**'
+      - '!stl-preview-base/**'
+      - '!generated'
+      - '!codegen/**'
+      - 'codegen/stl/**'
+  pull_request:
     branches-ignore:
-      - 'generated'
-      - 'codegen/**'
-      - 'integrated/**'
       - 'stl-preview-head/**'
       - 'stl-preview-base/**'
+
+env:
+  GOPRIVATE: github.com/Metronome-Industries/metronome-go/v3,github.com/stainless-sdks/metronome-go/v3
 
 jobs:
   lint:
     runs-on: ${{ github.repository == 'stainless-sdks/metronome-terraform' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Setup go
-        uses: actions/setup-go@v5
+      - uses: ./.github/actions/setup-go
         with:
-          go-version-file: ./go.mod
+          stainless-api-key: ${{ secrets.STAINLESS_API_KEY }}
+
+      - name: Link staging branch
+        if: github.repository == 'stainless-sdks/metronome-terraform'
+        run: |
+          ./scripts/link 'github.com/stainless-sdks/metronome-go/v3@${{ github.ref_name }}' || true
 
       - name: Bootstrap
         run: ./scripts/bootstrap
@@ -27,13 +41,18 @@ jobs:
 
   test:
     runs-on: ${{ github.repository == 'stainless-sdks/metronome-terraform' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Setup go
-        uses: actions/setup-go@v5
+      - uses: ./.github/actions/setup-go
         with:
-          go-version-file: ./go.mod
+          stainless-api-key: ${{ secrets.STAINLESS_API_KEY }}
+
+      - name: Link staging branch
+        if: github.repository == 'stainless-sdks/metronome-terraform'
+        run: |
+          ./scripts/link 'github.com/stainless-sdks/metronome-go/v3@${{ github.ref_name }}' || true
 
       - name: Bootstrap
         run: ./scripts/bootstrap

@@ -1,3 +1,5 @@
 .prism.log
+.stdy.log
+.tmp/
 dist/
 terraform-provider-metronome

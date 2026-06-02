@@ -2,12 +2,25 @@
 
 set -e
 
-cd "$(dirname "$0")/.."
+cd -- "$(dirname -- "$0")/.."
+
+# Mark the necessary Go modules as private to avoid Go's proxy
+export GOPRIVATE="${GOPRIVATE:+$GOPRIVATE,}github.com/Metronome-Industries/metronome-go/v3,github.com/stainless-sdks/metronome-go/v3"
 
 echo "==> Generating Terraform provider documentation"
-if ! command -v "tfplugindocs" &> /dev/null
-then
+
+EXEC='tfplugindocs'
+if ! command -v -- "$EXEC" &> /dev/null; then
   go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs
+  EXEC="$(go env -- GOPATH)/bin/$EXEC"
 fi
 
-"$(go env GOPATH)/bin/tfplugindocs" generate -rendered-provider-name "Metronome" -provider-name="metronome"
+case "$OSTYPE" in
+linux*)
+  export -- TMPDIR=/var/tmp
+  ;;
+*) ;;
+esac
+
+go mod tidy -e
+exec -- "$EXEC" generate -rendered-provider-name "Metronome" -provider-name="metronome"
