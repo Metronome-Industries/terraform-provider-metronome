@@ -15,11 +15,11 @@ on:
       - 'stl-preview-base/**'
 
 env:
-  GOPRIVATE: github.com/Metronome-Industries/metronome-go/v3,github.com/stainless-sdks/metronome-go/v3
+  GOPRIVATE: github.com/Metronome-Industries/metronome-go/v3,github.com/Metronome-Industries/metronome-go-staging/v3
 
 jobs:
   lint:
-    runs-on: ${{ startsWith(github.repository, 'stainless-sdks/') && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
+    runs-on: 'ubuntu-latest'
     if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -29,9 +29,9 @@ jobs:
           stainless-api-key: ${{ secrets.STAINLESS_API_KEY }}
 
       - name: Link staging branch
-        if: github.repository == 'stainless-sdks/metronome-terraform'
+        if: github.repository == 'Metronome-Industries/terraform-provider-metronome-staging'
         run: |
-          ./scripts/link 'github.com/stainless-sdks/metronome-go/v3@${{ github.ref_name }}' || true
+          ./scripts/link 'github.com/Metronome-Industries/metronome-go-staging/v3@${{ github.ref_name }}' || true
 
       - name: Bootstrap
         run: ./scripts/bootstrap
@@ -40,7 +40,7 @@ jobs:
         run: ./scripts/lint
 
   test:
-    runs-on: ${{ startsWith(github.repository, 'stainless-sdks/') && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
+    runs-on: 'ubuntu-latest'
     if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -50,9 +50,9 @@ jobs:
           stainless-api-key: ${{ secrets.STAINLESS_API_KEY }}
 
       - name: Link staging branch
-        if: github.repository == 'stainless-sdks/metronome-terraform'
+        if: github.repository == 'Metronome-Industries/terraform-provider-metronome-staging'
         run: |
-          ./scripts/link 'github.com/stainless-sdks/metronome-go/v3@${{ github.ref_name }}' || true
+          ./scripts/link 'github.com/Metronome-Industries/metronome-go-staging/v3@${{ github.ref_name }}' || true
 
       - name: Bootstrap
         run: ./scripts/bootstrap
