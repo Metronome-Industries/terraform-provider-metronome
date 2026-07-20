@@ -20,7 +20,7 @@ if [ -f "Brewfile" ] && [ "$(uname -s)" = "Darwin" ] && [ "${SKIP_BREW:-}" != "1
 fi
 
 # Mark the necessary Go modules as private to avoid Go's proxy
-export GOPRIVATE="${GOPRIVATE:+$GOPRIVATE,}github.com/Metronome-Industries/metronome-go/v3,github.com/stainless-sdks/metronome-go/v3"
+export GOPRIVATE="${GOPRIVATE:+$GOPRIVATE,}github.com/Metronome-Industries/metronome-go/v3,github.com/Metronome-Industries/metronome-go-staging/v3"
 
 echo "==> Installing Go dependencies…"
 go mod tidy -e || true
