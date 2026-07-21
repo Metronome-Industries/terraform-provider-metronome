@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2026-07-21)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/Metronome-Industries/terraform-provider-metronome/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* [ORCH-1875] add billing config schedule to api ([fa955df](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/fa955df27c1cc71287989ba6285c1f868620fbbb))
+* add stlc SDK generation workflow to api repo ([6b9c983](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/6b9c98306f7b61d697f189d6059368be0b18d1fb))
+* Show Tax/PDF Fields on Metronome Invoice ([9b2cd14](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/9b2cd14bbc37944b49ee69e598c4354e80dfecfb))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([3c50ee3](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/3c50ee302a94bade3baca8822fc1069641906e52))
+
+
+### Bug Fixes
+
+* **terraform:** fix nil pointer dereference when comparing null or unknown numbers ([486d43f](https://github.com/Metronome-Industries/terraform-provider-metronome/commit/486d43f34bebe8c8f7abfd3f61b3f2487ac03fb7))
+
 ## 0.1.0-alpha.3 (2026-06-01)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/Metronome-Industries/terraform-provider-metronome/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
